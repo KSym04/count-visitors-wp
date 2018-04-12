@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Count Visitor WP
-Description: WordPress plugin utility used for counting user page visits on your WordPress site pages and post.  
+Plugin Name: Count Visitors WP
+Description: WordPress plugin utility used for counting user page visits on your WordPress site pages and post.
 Version: 1.0.0
 Author: DopeThemes
 Author URI: http://www.dopethemes.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
-Plugin URI: http://www.dopethemes.com/downloads/count-visitor-wp/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
+Plugin URI: http://www.dopethemes.com/downloads/count-visitors-wp/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
 Copyright: DopeThemes
 Text Domain: cvwp
 Domain Path: /lang
@@ -35,10 +35,10 @@ if( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( ! class_exists('count_visitor_wp') ) :
+if( ! class_exists('count_visitors_wp') ) :
 
 
-class count_visitor_wp {
+class count_visitors_wp {
 
 	// vars
 	var $version = '1.0.0';
@@ -46,7 +46,7 @@ class count_visitor_wp {
 	/*
 	*  __construct
 	*
-	*  A dummy constructor to ensure Count Visitor WP is only initialized once
+	*  A dummy constructor to ensure Count Visitors WP is only initialized once
 	*
 	*  @type	function
 	*  @date	04/12/18
@@ -65,7 +65,7 @@ class count_visitor_wp {
 	/*
 	*  initialize
 	*
-	*  The real constructor to initialize Count Visitor WP
+	*  The real constructor to initialize Count Visitors WP
 	*
 	*  @type	function
 	*  @date	04/12/18
@@ -81,7 +81,7 @@ class count_visitor_wp {
 		$this->settings = array(
 
 			// info
-			'name' 		=> __( 'Count Visitor WP', 'cvwp' ),
+			'name' 		=> __( 'Count Visitors WP', 'cvwp' ),
 			'version' 	=> $this->version,
 
 			// path
@@ -93,16 +93,16 @@ class count_visitor_wp {
 		);
 
 		// defines
-		define( 'COUNT_VISITOR_WP_VERSION', $this->version );
+		define( 'COUNT_VISITORS_WP_VERSION', $this->version );
 
-		define( 'COUNT_VISITOR_WP_BASE_DIR', $this->settings['dir'] );
-		define( 'COUNT_VISITOR_WP_CORE_DIR', $this->settings['dir'] . 'core/' );
+		define( 'COUNT_VISITORS_WP_BASE_DIR', $this->settings['dir'] );
+		define( 'COUNT_VISITORS_WP_CORE_DIR', $this->settings['dir'] . 'core/' );
 
-		define( 'COUNT_VISITOR_WP_BASE_PATH', $this->settings['path'] );
-		define( 'COUNT_VISITOR_WP_CORE_PATH', $this->settings['path'] . 'core/' );
+		define( 'COUNT_VISITORS_WP_BASE_PATH', $this->settings['path'] );
+		define( 'COUNT_VISITORS_WP_CORE_PATH', $this->settings['path'] . 'core/' );
 
 		// set text domain
-		load_textdomain( 'cvwp', COUNT_VISITOR_WP_BASE_PATH . 'lang/cvwp-' . get_locale() . '.mo' );
+		load_textdomain( 'cvwp', COUNT_VISITORS_WP_BASE_PATH . 'lang/cvwp-' . get_locale() . '.mo' );
 
 		// includes
 		include( 'core/helpers.php' );
@@ -122,7 +122,7 @@ class count_visitor_wp {
 	function register_styles() {
 
 		// register
-		wp_register_style( 'count-visitor-wp', COUNT_VISITOR_WP_BASE_DIR . 'assets/css/main.min.css', array(), COUNT_VISITOR_WP_VERSION );
+		wp_register_style( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/css/main.min.css', [], COUNT_VISITORS_WP_VERSION );
 
 		// init
 		wp_enqueue_style( 'count-visitor-wp' );
@@ -140,7 +140,7 @@ class count_visitor_wp {
 	function register_scripts() {
 
 		// register
-		wp_register_script( 'count-visitor-wp', COUNT_VISITOR_WP_BASE_DIR . 'assets/js/base.min.js', array( 'jquery' ), COUNT_VISITOR_WP_VERSION );
+		wp_register_script( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/js/base.min.js', ['jquery'], COUNT_VISITORS_WP_VERSION );
 
 		// init
 		wp_enqueue_script( 'count-visitor-wp' );
@@ -150,12 +150,12 @@ class count_visitor_wp {
 }
 
 /*
-*  count_visitor_wp
+*  count_visitors_wp
 *
-*  The main function responsible for returning the one true count_visitor_wp Instance to functions everywhere.
+*  The main function responsible for returning the one true count_visitors_wp Instance to functions everywhere.
 *  Use this function like you would a global variable, except without needing to declare the global.
 *
-*  Example: <?php $count_visitor_wp = count_visitor_wp(); ?>
+*  Example: <?php $count_visitors_wp = count_visitors_wp(); ?>
 *
 *  @type	function
 *  @date	04/12/18
@@ -165,24 +165,24 @@ class count_visitor_wp {
 *  @return	(object)
 */
 
-function count_visitor_wp() {
+function count_visitors_wp() {
 
-	global $count_visitor_wp;
+	global $count_visitors_wp;
 
-	if( ! isset($count_visitor_wp) ) {
+	if( ! isset($count_visitors_wp) ) {
 
-		$count_visitor_wp = new count_visitor_wp();
+		$count_visitors_wp = new count_visitors_wp();
 
-		$count_visitor_wp->initialize();
+		$count_visitors_wp->initialize();
 
 	}
 
-	return $count_visitor_wp;
+	return $count_visitors_wp;
 
 }
 
 // initialize
-count_visitor_wp();
+count_visitors_wp();
 
 
 endif; // class_exists check

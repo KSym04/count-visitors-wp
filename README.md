@@ -1,9 +1,9 @@
-# Count Visitor WP: WordPress Plugin #
+# Count Visitors WP: WordPress Plugin #
 
-[![Build Status](https://travis-ci.org/KSym04/count-visitor-wp.svg?branch=master)](https://travis-ci.org/KSym04/count-visitor-wp)
+[![Build Status](https://travis-ci.org/KSym04/count-visitors-wp.svg?branch=master)](https://travis-ci.org/KSym04/count-visitors-wp)
 
 **Contributors:** KSym04\
-**Tags:** page counter, visit counter, wp count visit\
+**Tags:** page counter, visits counter, wp count visits\
 **Requires at least:** 4.4\
 **Tested up to:** 4.9.5\
 **Stable tag:** 1.0.0\
@@ -12,11 +12,11 @@
 
 ## Description ##
 
-Count Visitor WP is a plugin utility used for counting user page visits on your WordPress site pages and post.  
+Count Visitors WP is a plugin utility used for counting user page visits on your WordPress site pages and post.  
 
 ## Installation ##
 
-1. Upload the `count-visitor-wp` directory to the `/wp-content/plugins/` directory via FTP
+1. Upload the `count-visitors-wp` directory to the `/wp-content/plugins/` directory via FTP
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Enjoy
 
@@ -24,7 +24,13 @@ Count Visitor WP is a plugin utility used for counting user page visits on your 
 
 ### How use the plugin? ###
 
-You may paste our very polite shortcode `[please_count_visitor]` on sidebar text widget, page or post and it will trigger counting your page visits.
+You may paste our very polite shortcode `[please_count_visitors]` on sidebar text widget, page or post and it will trigger counting your page visits.
+
+### What does your shortcode `[please_count_visitors]` parameters? ###
+
+`label`\
+Example: `[please_count_visitors label="Page Views: "]`\
+Output: `Page Views: 12345`
 
 ### How the visit count works? ###
 
