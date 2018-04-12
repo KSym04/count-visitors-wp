@@ -1,0 +1,7 @@
+{
+    "require": {
+        "wp-coding-standards/wpcs": "^0.14.1",
+        "squizlabs/php_codesniffer": "^3.2",
+        "phpro/grumphp": "^0.14.0"
+    }
+}

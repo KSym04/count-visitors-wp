@@ -16,7 +16,5 @@ parameters:
     tasks:
         phpcs: ~
         phplint: ~
-        phpmd: ~
-        phpmnd: ~
     testsuites: []
     extensions: []
