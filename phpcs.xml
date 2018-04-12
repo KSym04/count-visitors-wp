@@ -5,6 +5,8 @@
 
 	<description>Count Visitors WP dev PHP_CodeSniffer ruleset.</description>
 
+	<config name="installed_paths" value="/vendor/wp-coding-standard/wpcs" />
+
 	<!-- Exclude paths -->
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
