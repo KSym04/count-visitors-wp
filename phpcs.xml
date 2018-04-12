@@ -5,7 +5,7 @@
 
 	<description>Count Visitors WP dev PHP_CodeSniffer ruleset.</description>
 
-	<config name="installed_paths" value="/vendor/wp-coding-standard/wpcs" />
+	<config name="installed_paths" value="wpcs" />
 
 	<!-- Exclude paths -->
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
@@ -16,8 +16,6 @@
 	<config name="testVersion" value="4.9-"/>
 
 	<!-- Rules -->
-	<rule ref="WordPress-Core" />
-	<rule ref="WordPress-Extra" />
 	<rule ref="WordPress">
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.NoCaching" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
@@ -28,6 +26,7 @@
 		<exclude name="WordPress.VIP.RestrictedVariables.user_meta__wpdb__usermeta" />
 		<exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page" />
 		<exclude name="WordPress.VIP.RestrictedVariables.cache_constraints___COOKIE" />
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 	</rule>
 	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
 		<properties>
@@ -41,10 +40,9 @@
 	</rule>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="woocommerce" />
+			<property name="text_domain" type="array" value="cvwp" />
 		</properties>
 	</rule>
-	<rule ref="WordPress.Files.FileName.InvalidClassFileName" />
 	<rule ref="Generic.Commenting" />
 	<rule ref="Squiz.Commenting">
 		<exclude name="Squiz.Commenting.LongConditionClosingComment" />

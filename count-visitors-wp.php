@@ -1,188 +1,169 @@
 <?php
-/*
-Plugin Name: Count Visitors WP
-Description: WordPress plugin utility used for counting user page visits on your WordPress site pages and post.
-Version: 1.0.0
-Author: DopeThemes
-Author URI: http://www.dopethemes.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
-Plugin URI: http://www.dopethemes.com/downloads/count-visitors-wp/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
-Copyright: DopeThemes
-Text Domain: cvwp
-Domain Path: /lang
-License: GPLv3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
-*/
+/**
+ * Plugin Name: Count Visitors WP
+ * Description: WordPress plugin utility used for counting user page visits on your WordPress site pages and post.
+ * Version: 1.0.0
+ * Author: Eteam.dk
+ * Author URI: http://www.eteam.dk/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
+ * Plugin URI: http://www.eteam.dk/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
+ * Copyright: Eteam.dk
+ * Text Domain: cvwp
+ * Domain Path: /lang
+ * License: GPLv3
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package CountVisitorsWP
+ */
 
-/*
-    Copyright DopeThemes
+/**
+ * Copyright Eteam.dk
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335, USA
+ */
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335, USA
-*/
-
-if( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( ! class_exists('count_visitors_wp') ) :
+if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 
+	/**
+	 * Count_Visitors_WP class
+	 */
+	class Count_Visitors_WP {
 
-class count_visitors_wp {
+		/**
+		 * CountVisitorsWP version.
+		 *
+		 * @var string
+		 */
+		public $version = '1.0.0';
 
-	// vars
-	var $version = '1.0.0';
+		/**
+		 *  __construct
+		 *
+		 *  A dummy constructor to ensure Count Visitors WP is only initialized once
+		 *
+		 *  @date    04/12/18
+		 *  @since   1.0.0
+		 */
+		public function __construct() {
+			// Do nothing here.
+		}
 
-	/*
-	*  __construct
-	*
-	*  A dummy constructor to ensure Count Visitors WP is only initialized once
-	*
-	*  @type	function
-	*  @date	04/12/18
-	*  @since	1.0.0
-	*
-	*  @param	N/A
-	*  @return	N/A
-	*/
+		/**
+		 *  Initialize.
+		 *
+		 *  The real constructor to initialize Count Visitors WP
+		 *
+		 *  @type    function
+		 *  @date    04/12/18
+		 *  @since   1.0.0
+		 */
+		public function initialize() {
+			// vars.
+			$this->settings = array(
 
-	function __construct() {
+				// info.
+				'name'     => __( 'Count Visitors WP', 'cvwp' ),
+				'version'  => $this->version,
 
-		/* Do nothing here */
+				// path.
+				'file'     => __FILE__,
+				'basename' => plugin_basename( __FILE__ ),
+				'path'     => plugin_dir_path( __FILE__ ),
+				'dir'      => plugin_dir_url( __FILE__ ),
 
-	}
+			);
 
-	/*
-	*  initialize
-	*
-	*  The real constructor to initialize Count Visitors WP
-	*
-	*  @type	function
-	*  @date	04/12/18
-	*  @since	1.0.0
-	*
-	*  @param	N/A
-	*  @return	N/A
-	*/
+			// defines.
+			define( 'COUNT_VISITORS_WP_VERSION', $this->version );
 
-	function initialize() {
+			define( 'COUNT_VISITORS_WP_BASE_DIR', $this->settings['dir'] );
+			define( 'COUNT_VISITORS_WP_CORE_DIR', $this->settings['dir'] . 'core/' );
 
-		// vars
-		$this->settings = array(
+			define( 'COUNT_VISITORS_WP_BASE_PATH', $this->settings['path'] );
+			define( 'COUNT_VISITORS_WP_CORE_PATH', $this->settings['path'] . 'core/' );
 
-			// info
-			'name' 		=> __( 'Count Visitors WP', 'cvwp' ),
-			'version' 	=> $this->version,
+			// set text domain.
+			load_textdomain( 'cvwp', COUNT_VISITORS_WP_BASE_PATH . 'lang/cvwp-' . get_locale() . '.mo' );
 
-			// path
-			'file' 		=> __FILE__,
-			'basename' 	=> plugin_basename( __FILE__ ),
-			'path' 		=> plugin_dir_path( __FILE__ ),
-			'dir' 		=> plugin_dir_url( __FILE__ )
+			// classes.
+			require_once 'core/class-cvwp-metabox.php';
+			require_once 'core/class-cvwp-rest-api.php';
 
-		);
+			// functions.
+			include 'core/cvwp-helpers-function.php';
+			include 'core/cvwp-shortcodes-function.php';
+		}
 
-		// defines
-		define( 'COUNT_VISITORS_WP_VERSION', $this->version );
+		/**
+		 *  Register styles.
+		 *
+		 *  @type    function
+		 *  @date    04/12/18
+		 *  @since   1.0.0
+		 */
+		public function register_styles() {
+			// register.
+			wp_register_style( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/css/main.min.css', [], COUNT_VISITORS_WP_VERSION );
 
-		define( 'COUNT_VISITORS_WP_BASE_DIR', $this->settings['dir'] );
-		define( 'COUNT_VISITORS_WP_CORE_DIR', $this->settings['dir'] . 'core/' );
+			// init.
+			wp_enqueue_style( 'count-visitor-wp' );
+		}
 
-		define( 'COUNT_VISITORS_WP_BASE_PATH', $this->settings['path'] );
-		define( 'COUNT_VISITORS_WP_CORE_PATH', $this->settings['path'] . 'core/' );
+		/**
+		 *  Register scripts.
+		 *
+		 *  @type    function
+		 *  @date    04/12/18
+		 *  @since   1.0.0
+		 */
+		public function register_scripts() {
+			// register.
+			wp_register_script( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/js/base.min.js', [ 'jquery' ], COUNT_VISITORS_WP_VERSION );
 
-		// set text domain
-		load_textdomain( 'cvwp', COUNT_VISITORS_WP_BASE_PATH . 'lang/cvwp-' . get_locale() . '.mo' );
-
-		// includes
-		include( 'core/helpers.php' );
-		include( 'core/widgets.php' );
-		include( 'core/shortcodes.php' );
-
-	}
-
-	/*
-	*  register_styles
-	*
-	*  @type	function
-	*  @date	04/12/18
-	*  @since	1.0.0
-	*/
-
-	function register_styles() {
-
-		// register
-		wp_register_style( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/css/main.min.css', [], COUNT_VISITORS_WP_VERSION );
-
-		// init
-		wp_enqueue_style( 'count-visitor-wp' );
-
-	}
-
-	/*
-	*  register_scripts
-	*
-	*  @type	function
-	*  @date	04/12/18
-	*  @since	1.0.0
-	*/
-
-	function register_scripts() {
-
-		// register
-		wp_register_script( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/js/base.min.js', ['jquery'], COUNT_VISITORS_WP_VERSION );
-
-		// init
-		wp_enqueue_script( 'count-visitor-wp' );
+			// init.
+			wp_enqueue_script( 'count-visitor-wp' );
+		}
 
 	}
 
-}
-
-/*
-*  count_visitors_wp
-*
-*  The main function responsible for returning the one true count_visitors_wp Instance to functions everywhere.
-*  Use this function like you would a global variable, except without needing to declare the global.
-*
-*  Example: <?php $count_visitors_wp = count_visitors_wp(); ?>
-*
-*  @type	function
-*  @date	04/12/18
-*  @since	1.0.0
-*
-*  @param	N/A
-*  @return	(object)
-*/
-
-function count_visitors_wp() {
-
-	global $count_visitors_wp;
-
-	if( ! isset($count_visitors_wp) ) {
-
-		$count_visitors_wp = new count_visitors_wp();
-
-		$count_visitors_wp->initialize();
-
+	/**
+	 *  CountVisitorsWP object
+	 *
+	 *  The main function responsible for returning the one true count_visitors_wp Instance to functions everywhere.
+	 *  Use this function like you would a global variable, except without needing to declare the global.
+	 *
+	 *  Example: <?php $count_visitors_wp = count_visitors_wp(); ?>
+	 *
+	 *  @type    function
+	 *  @date    04/12/18
+	 *  @since   1.0.0
+	 *  @return  object
+	 */
+	function count_visitors_wp() {
+		global $count_visitors_wp;
+		if ( ! isset( $count_visitors_wp ) ) {
+			$count_visitors_wp = new Count_Visitors_WP();
+			$count_visitors_wp->initialize();
+		}
+		return $count_visitors_wp;
 	}
 
-	return $count_visitors_wp;
+	// initialize.
+	count_visitors_wp();
 
-}
-
-// initialize
-count_visitors_wp();
-
-
-endif; // class_exists check
+endif;

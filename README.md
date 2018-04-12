@@ -12,7 +12,7 @@
 
 ## Description ##
 
-Count Visitors WP is a plugin utility used for counting user page visits on your WordPress site pages and post.  
+Count Visitors WP is a plugin utility used for counting user page visits on your WordPress site pages and post.
 
 ## Installation ##
 
@@ -22,21 +22,22 @@ Count Visitors WP is a plugin utility used for counting user page visits on your
 
 ## Frequently Asked Questions ##
 
-### How use the plugin? ###
+### How to use the plugin ###
 
 You may paste our very polite shortcode `[please_count_visitors]` on sidebar text widget, page or post and it will trigger counting your page visits.
 
-### What does your shortcode `[please_count_visitors]` parameters? ###
+### What does your shortcode please_count_visitors parameters ###
 
 `label`\
 Example: `[please_count_visitors label="Page Views: "]`\
 Output: `Page Views: 12345`
 
-### How the visit count works? ###
+### How the visit count works ###
 
 Our plugin by default only counts the unique visit of user on each page or post.
 
 ## Changelog ##
 
 ### 1.0.0 ###
-* Happy Birthday!!!
+
+* Happy Birthday
