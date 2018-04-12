@@ -44,12 +44,12 @@ class CVWP_MetaBox {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_metabox() {
+	public function add_metabox( $post_type ) {
 		add_meta_box(
 			'cvwp-meta-box',
 			__( 'Visit Counts', 'cvwp' ),
 			array( $this, 'render_metabox' ),
-			[],
+			$post_type, // where to appear? Example: post, page and etc.
 			'side',
 			'high'
 		);
