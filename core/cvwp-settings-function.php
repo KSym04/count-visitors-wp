@@ -35,9 +35,9 @@ function cvwp_install() {
 	global $wpdb;
 	global $cvwp_version;
 
-	// labels.
-	$cvwp_config       = $wpdb->prefix . 'cvwp_config';
-	$cvwp_total_counts = $wpdb->prefix . 'cvwp_total_counts';
+	// set db table names.
+	$cvwp_config_tbl       = $wpdb->prefix . 'cvwp_config';
+	$cvwp_total_counts_tbl = $wpdb->prefix . 'cvwp_total_counts';
 
 	// check collate.
 	$charset_collate = $wpdb->get_charset_collate();
@@ -46,35 +46,32 @@ function cvwp_install() {
 			$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
 		}
 		if ( ! empty( $wpdb->collate ) ) {
-			$charset_collate .= "COLLATE $wpdb->collate";
+			$charset_collate .= " COLLATE $wpdb->collate";
 		}
 	}
 
 	// set config db.
+	$sql =
 	$wpdb->query(
 		$wpdb->prepare("
-		CREATE TABLE IF NOT EXISTS `%s` (
-		`id` mediumint(9) NOT NULL AUTO_INCREMENT,
-		`time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-		`config_name` varchar(255) NOT NULL,
-		`config_value` varchar(255) NOT NULL
-		UNIQUE KEY id (id)) %s;",
-			$cvwp_total_counts,
-			$charset_collate
+			CREATE TABLE IF NOT EXISTS %s (
+			`%s` mediumint(9) NOT NULL AUTO_INCREMENT,
+			`%s` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+			`%s` varchar(255) NOT NULL,
+			`%s` varchar(255) NOT NULL,
+			PRIMARY KEY id (id)) %s;", $cvwp_config_tbl, 'id', 'time', 'config_name', 'config_value', $charset_collate
 		)
 	);
 
 	// set total counts db.
 	$wpdb->query(
 		$wpdb->prepare("
-		CREATE TABLE IF NOT EXISTS `%s` (
-		`id` mediumint(9) NOT NULL AUTO_INCREMENT,
-		`time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-		`post_id` varchar(255) NOT NULL,
-		`post_count` int DEFAULT '0' NOT NULL
-		UNIQUE KEY id (id)) %s;",
-			$cvwp_total_counts,
-			$charset_collate
+			CREATE TABLE IF NOT EXISTS %s (
+			`%s` mediumint(9) NOT NULL AUTO_INCREMENT,
+			`%s` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+			`%s` varchar(255) NOT NULL,
+			`%s` int DEFAULT '0' NOT NULL,
+			PRIMARY KEY id (id)) %s;", $cvwp_total_counts_tbl, 'id', 'time', 'post_id', 'post_count', $charset_collate
 		)
 	);
 
