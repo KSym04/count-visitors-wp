@@ -16,6 +16,8 @@
 	<config name="testVersion" value="4.9-"/>
 
 	<!-- Rules -->
+	<rule ref="WordPress-Core" />
+	<rule ref="WordPress-Extra" />
 	<rule ref="WordPress">
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.NoCaching" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
