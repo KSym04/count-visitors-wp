@@ -36,8 +36,7 @@ function cvwp_install() {
 	global $cvwp_version;
 
 	// set db table names.
-	$cvwp_config_tbl       = $wpdb->prefix . 'cvwp_config';
-	$cvwp_total_counts_tbl = $wpdb->prefix . 'cvwp_total_counts';
+	$cvwp_config_tbl = $wpdb->prefix . 'cvwp_config';
 
 	// check collate.
 	$charset_collate = $wpdb->get_charset_collate();
@@ -49,31 +48,6 @@ function cvwp_install() {
 			$charset_collate .= " COLLATE $wpdb->collate";
 		}
 	}
-
-	// set config db.
-	$sql =
-	$wpdb->query(
-		$wpdb->prepare("
-			CREATE TABLE IF NOT EXISTS %s (
-			`%s` mediumint(9) NOT NULL AUTO_INCREMENT,
-			`%s` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			`%s` varchar(255) NOT NULL,
-			`%s` varchar(255) NOT NULL,
-			PRIMARY KEY id (id)) %s;", $cvwp_config_tbl, 'id', 'time', 'config_name', 'config_value', $charset_collate
-		)
-	);
-
-	// set total counts db.
-	$wpdb->query(
-		$wpdb->prepare("
-			CREATE TABLE IF NOT EXISTS %s (
-			`%s` mediumint(9) NOT NULL AUTO_INCREMENT,
-			`%s` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			`%s` varchar(255) NOT NULL,
-			`%s` int DEFAULT '0' NOT NULL,
-			PRIMARY KEY id (id)) %s;", $cvwp_total_counts_tbl, 'id', 'time', 'post_id', 'post_count', $charset_collate
-		)
-	);
 
 	// add version on database.
 	update_option( 'cvwp_version', $cvwp_version );
