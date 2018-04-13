@@ -46,7 +46,7 @@ function cvwp_install() {
 			$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
 		}
 		if ( ! empty( $wpdb->collate ) ) {
-			$charset_collate .= " COLLATE $wpdb->collate";
+			$charset_collate .= "COLLATE $wpdb->collate";
 		}
 	}
 
@@ -58,7 +58,7 @@ function cvwp_install() {
 		`time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		`config_name` varchar(255) NOT NULL,
 		`config_value` varchar(255) NOT NULL
-		UNIQUE KEY id (id)) `%s`;",
+		UNIQUE KEY id (id)) %s;",
 			$cvwp_total_counts,
 			$charset_collate
 		)
@@ -72,7 +72,7 @@ function cvwp_install() {
 		`time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		`post_id` varchar(255) NOT NULL,
 		`post_count` int DEFAULT '0' NOT NULL
-		UNIQUE KEY id (id)) `%s`;",
+		UNIQUE KEY id (id)) %s;",
 			$cvwp_total_counts,
 			$charset_collate
 		)
