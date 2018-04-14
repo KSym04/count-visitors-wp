@@ -102,13 +102,31 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 
 			// functions.
 			include 'core/cvwp-settings-function.php';
-			include 'core/cvwp-helpers-function.php';
 			include 'core/cvwp-shortcodes-function.php';
 			include 'core/cvwp-admin-function.php';
 
 			// classes.
 			require_once 'core/class-cvwp-metabox.php';
 			require_once 'core/class-cvwp-rest-api.php';
+			require_once 'core/class-cvwp-controller.php';
+
+			if ( ! is_admin() ) {
+				add_action( 'wp_footer', array( $this, 'register_post_counter_field' ) );
+			}
+		}
+
+		/**
+		 *  Register post counter field.
+		 *
+		 *  Check the field if exist and counter is disabled on specific post or page
+		 *
+		 *  @type    function
+		 *  @date    04/14/18
+		 *  @since   1.0.0
+		 */
+		public function register_post_counter_field() {
+			global $post, $cvwp_controller;
+			return $cvwp_controller->register_counter( $post->ID );
 		}
 
 		/**
