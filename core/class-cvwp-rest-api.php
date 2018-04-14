@@ -31,7 +31,7 @@ class CVWP_Rest_Api {
 	 * @since 1.0.0
 	 * @var   array
 	 */
-	public $rest_bases = array( '/increment', '/view' );
+	public $rest_bases = array( '/view' );
 
 	/**
 	 * Constructor.
@@ -48,34 +48,31 @@ class CVWP_Rest_Api {
 	 * @since 1.0.0
 	 */
 	public function initialize() {
-		foreach ( $this->rest_bases as $rb ) {
+		foreach ( $this->rest_bases as $rest_base ) {
 			register_rest_route(
-				$this->namespace, $rb . '/(?P<post_ids>([a-zA-Z0-9_]\,?)+)', array(
+				$this->namespace, $rest_base . '/(?P<id>[\d]+)', array(
 					'methods'  => 'GET',
-					'callback' => array( $this, str_replace( '/', '', $rb ) . '_stats' ),
+					'callback' => array( $this, str_replace( '/', '', $rest_base ) . '_counts' ),
 				)
 			);
 		}
 	}
 
 	/**
-	 * Update post counts.
+	 * View post counts.
 	 *
 	 * @since 1.0.0
-	 * @param WP_REST_Request $request    Request object.
+	 * @param object $request  Request object.
 	 */
-	public function update_counts( WP_REST_Request $request ) {
-		// code here...
-	}
+	public function view_counts( $request ) {
+		$id = $request->get_param( 'id' );
 
-	/**
-	 * Get post counts.
-	 *
-	 * @since 1.0.0
-	 * @param WP_REST_Request $request    Request object.
-	 */
-	public function get_counts( WP_REST_Request $request ) {
-		// code here...
+		$json_data = array(
+			'success' => true,
+			'message' => $id,
+		);
+
+		return wp_send_json( $json_data );
 	}
 
 }
