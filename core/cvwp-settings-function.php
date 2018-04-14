@@ -39,13 +39,13 @@ function cvwp_install() {
 	$wpdb->query(
 		$wpdb->prepare(
 			"
-			CREATE TABLE IF NOT EXISTS {$wpdb->prefix}config (
+			CREATE TABLE IF NOT EXISTS {$wpdb->prefix}cvwp_config (
 			`id` mediumint(9) NOT NULL AUTO_INCREMENT,
 			`time` datetime DEFAULT %s NOT NULL,
 			`config_name` varchar(255) NOT NULL,
-			`config_value` int DEFAULT %s NOT NULL,
+			`config_value` varchar(255) NOT NULL,
 			PRIMARY KEY (id)) DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate};",
-			array( '0000-00-00 00:00:00', '0' )
+			"'0000-00-00 00:00:00', '0'"
 		)
 	);
 
@@ -73,7 +73,7 @@ function cvwp_install_data() {
 		array(
 			'time'         => current_time( 'mysql' ),
 			'config_name'  => 'welcome_title',
-			'config_value' => $welcome_title,
+			'config_value' => esc_sql( $welcome_title ),
 		)
 	);
 
@@ -83,7 +83,7 @@ function cvwp_install_data() {
 		array(
 			'time'         => current_time( 'mysql' ),
 			'config_name'  => 'welcome_msg',
-			'config_value' => $welcome_msg,
+			'config_value' => esc_sql( $welcome_msg ),
 		)
 	);
 }
