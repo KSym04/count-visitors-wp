@@ -35,19 +35,19 @@ function cvwp_install() {
 	global $wpdb;
 	global $cvwp_version;
 
-	// set db table names.
-	$cvwp_config_tbl = $wpdb->prefix . 'cvwp_config';
-
-	// check collate.
-	$charset_collate = $wpdb->get_charset_collate();
-	if ( $wpdb->has_cap( 'collation' ) ) {
-		if ( ! empty( $wpdb->charset ) ) {
-			$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
-		}
-		if ( ! empty( $wpdb->collate ) ) {
-			$charset_collate .= " COLLATE $wpdb->collate";
-		}
-	}
+	// cvwp_config table.
+	$wpdb->query(
+		$wpdb->prepare(
+			"
+			CREATE TABLE IF NOT EXISTS {$wpdb->prefix}config (
+			`id` mediumint(9) NOT NULL AUTO_INCREMENT,
+			`time` datetime DEFAULT %s NOT NULL,
+			`config_name` varchar(255) NOT NULL,
+			`config_value` int DEFAULT %s NOT NULL,
+			PRIMARY KEY (id)) DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate};",
+			array( '0000-00-00 00:00:00', '0' )
+		)
+	);
 
 	// add version on database.
 	update_option( 'cvwp_version', $cvwp_version );
@@ -64,15 +64,15 @@ function cvwp_install_data() {
 	// config defaults.
 	$cvwp_config = $wpdb->prefix . 'cvwp_config';
 
-	$welcome_name = 'Count Visitors WP';
-	$welcome_text = 'Congratulations, you just completed the installation!';
+	$welcome_title = 'Count Visitors WP';
+	$welcome_msg   = 'Congratulations, you just completed the installation!';
 
 	$wpdb->insert(
 		$cvwp_config,
 		array(
 			'time'         => current_time( 'mysql' ),
-			'config_name'  => $welcome_name,
-			'config_value' => $welcome_text,
+			'config_name'  => array( 'welcome_title', 'welcome_msg' ),
+			'config_value' => array( $welcome_title, $welcome_msg ),
 		)
 	);
 }
