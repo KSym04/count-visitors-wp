@@ -75,7 +75,7 @@ function cvwp_install() {
 function cvwp_install_data() {
 	global $wpdb;
 
-	// title.
+	// config: title.
 	$check_welcome_title = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}cvwp_config where config_name = %s", 'welcome_title' ) );
 	if ( 0 === $check_welcome_title ) {
 		$welcome_title = 'Count Visitors WP';
@@ -89,7 +89,7 @@ function cvwp_install_data() {
 		);
 	}
 
-	// message.
+	// config: message.
 	$check_welcome_msg = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}cvwp_config where config_name = %s", 'welcome_msg' ) );
 	if ( 0 === $check_welcome_msg ) {
 		$welcome_msg = 'Congratulations, you just completed the installation!';
