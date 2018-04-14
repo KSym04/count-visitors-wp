@@ -67,12 +67,23 @@ function cvwp_install_data() {
 	$welcome_title = 'Count Visitors WP';
 	$welcome_msg   = 'Congratulations, you just completed the installation!';
 
+	// title.
 	$wpdb->insert(
 		$cvwp_config,
 		array(
 			'time'         => current_time( 'mysql' ),
-			'config_name'  => array( 'welcome_title', 'welcome_msg' ),
-			'config_value' => array( $welcome_title, $welcome_msg ),
+			'config_name'  => 'welcome_title',
+			'config_value' => $welcome_title,
+		)
+	);
+
+	// message.
+	$wpdb->insert(
+		$cvwp_config,
+		array(
+			'time'         => current_time( 'mysql' ),
+			'config_name'  => 'welcome_msg',
+			'config_value' => $welcome_msg,
 		)
 	);
 }
