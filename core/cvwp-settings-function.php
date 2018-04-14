@@ -45,7 +45,7 @@ function cvwp_install() {
 			`config_name` varchar(255) NOT NULL,
 			`config_value` varchar(255) NOT NULL,
 			PRIMARY KEY (id)) DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate};",
-			"'0000-00-00 00:00:00', '0'"
+			array( '0000-00-00 00:00:00' )
 		)
 	);
 
