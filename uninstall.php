@@ -6,8 +6,18 @@
  * @since 1.0.0
  */
 
-if( ! defined( 'ABSPATH' ) ) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
-if( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) die;
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	die;
+}
+
+global $wpdb;
+
+// plugin options.
+delete_option( 'cvwp_version' );
+
+// plugin databases.
+$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'cvwp_config' );

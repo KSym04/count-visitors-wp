@@ -61,29 +61,31 @@ function cvwp_install() {
 function cvwp_install_data() {
 	global $wpdb;
 
-	// config defaults.
-	$cvwp_config = $wpdb->prefix . 'cvwp_config';
-
-	$welcome_title = 'Count Visitors WP';
-	$welcome_msg   = 'Congratulations, you just completed the installation!';
-
 	// title.
-	$wpdb->insert(
-		$cvwp_config,
-		array(
-			'time'         => current_time( 'mysql' ),
-			'config_name'  => 'welcome_title',
-			'config_value' => esc_sql( $welcome_title ),
-		)
-	);
+	$check_welcome_title = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}cvwp_config where config_name = %s", 'welcome_title' ) );
+	if ( 0 === $check_welcome_title ) {
+		$welcome_title = 'Count Visitors WP';
+		$wpdb->insert(
+			$wpdb->prefix . 'cvwp_config',
+			array(
+				'time'         => current_time( 'mysql' ),
+				'config_name'  => 'welcome_title',
+				'config_value' => esc_sql( $welcome_title ),
+			)
+		);
+	}
 
 	// message.
-	$wpdb->insert(
-		$cvwp_config,
-		array(
-			'time'         => current_time( 'mysql' ),
-			'config_name'  => 'welcome_msg',
-			'config_value' => esc_sql( $welcome_msg ),
-		)
-	);
+	$check_welcome_msg = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}cvwp_config where config_name = %s", 'welcome_msg' ) );
+	if ( 0 === $check_welcome_msg ) {
+		$welcome_msg = 'Congratulations, you just completed the installation!';
+		$wpdb->insert(
+			$wpdb->prefix . 'cvwp_config',
+			array(
+				'time'         => current_time( 'mysql' ),
+				'config_name'  => 'welcome_msg',
+				'config_value' => esc_sql( $welcome_msg ),
+			)
+		);
+	}
 }
