@@ -49,6 +49,20 @@ function cvwp_install() {
 		)
 	);
 
+	// cvwp_total_counts table.
+	$wpdb->query(
+		$wpdb->prepare(
+			"
+			CREATE TABLE IF NOT EXISTS {$wpdb->prefix}cvwp_total_counts (
+			`id` mediumint(9) NOT NULL AUTO_INCREMENT,
+			`time` datetime DEFAULT %s NOT NULL,
+			`post_id` varchar(255) NOT NULL,
+			`visits_count` int DEFAULT %s NOT NULL,
+			PRIMARY KEY (id)) DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate};",
+			array( '0000-00-00 00:00:00', '0' )
+		)
+	);
+
 	// add version on database.
 	update_option( 'cvwp_version', $cvwp_version );
 }

@@ -21,3 +21,4 @@ delete_option( 'cvwp_version' );
 
 // plugin databases.
 $wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'cvwp_config' );
+$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . 'cvwp_total_counts' );
