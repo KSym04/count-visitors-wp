@@ -29,8 +29,8 @@ You may paste our very polite shortcode `[please_count_visitors]` on sidebar tex
 ### What does your shortcode please_count_visitors parameters ###
 
 `label`\
-Example: `[please_count_visitors label="Page Views: "]`\
-Output: `Page Views: 12345`
+Example: `[please_count_visitors label="Page Views:"]`\
+Output: `Page Views: 12,345,678`
 
 ### How the visit count works ###
 

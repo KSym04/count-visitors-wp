@@ -100,13 +100,34 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 			// set text domain.
 			load_textdomain( 'cvwp', COUNT_VISITORS_WP_BASE_PATH . 'lang/cvwp-' . get_locale() . '.mo' );
 
+			// functions.
+			include 'core/cvwp-settings-function.php';
+			include 'core/cvwp-shortcodes-function.php';
+			include 'core/cvwp-helpers-function.php';
+			include 'core/cvwp-admin-function.php';
+
 			// classes.
 			require_once 'core/class-cvwp-metabox.php';
 			require_once 'core/class-cvwp-rest-api.php';
+			require_once 'core/class-cvwp-controller.php';
 
-			// functions.
-			include 'core/cvwp-helpers-function.php';
-			include 'core/cvwp-shortcodes-function.php';
+			if ( ! is_admin() ) {
+				add_action( 'wp_footer', array( $this, 'register_post_counter_field' ) );
+			}
+		}
+
+		/**
+		 *  Register post counter field.
+		 *
+		 *  Check the field if exist and counter is disabled on specific post or page
+		 *
+		 *  @type    function
+		 *  @date    04/14/18
+		 *  @since   1.0.0
+		 */
+		public function register_post_counter_field() {
+			global $post, $cvwp_controller;
+			return $cvwp_controller->register_counter( $post->ID );
 		}
 
 		/**
@@ -167,3 +188,7 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 	count_visitors_wp();
 
 endif;
+
+// activation hooks.
+register_activation_hook( __FILE__, 'cvwp_install' );
+register_activation_hook( __FILE__, 'cvwp_install_data' );

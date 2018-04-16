@@ -16,6 +16,8 @@
 	<config name="testVersion" value="4.9-"/>
 
 	<!-- Rules -->
+	<rule ref="WordPress-Core" />
+	<rule ref="WordPress-Extra" />
 	<rule ref="WordPress">
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.NoCaching" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
@@ -27,6 +29,7 @@
 		<exclude name="WordPress.VIP.PostsPerPage.posts_per_page_posts_per_page" />
 		<exclude name="WordPress.VIP.RestrictedVariables.cache_constraints___COOKIE" />
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+		<exclude name="WordPress.VIP.SuperGlobalInputUsage" />
 	</rule>
 	<rule ref="WordPress.VIP.ValidatedSanitizedInput">
 		<properties>
