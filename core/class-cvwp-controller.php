@@ -40,7 +40,8 @@ class CVWP_Controller {
 		$user_ip = count_visitors_get_ip( true );
 
 		// check and register a session first.
-		$sessions = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}cvwp_sessions WHERE `post_id` = %s AND `ip` = %s AND (TIMESTAMPDIFF(HOUR, session_time, NOW()) <= 24) LIMIT 1", array( $post_id, $user_ip ) ) );
+		// 24 hours.
+		$sessions = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}cvwp_sessions WHERE `post_id` = %s AND `ip` = %s AND (TIMESTAMPDIFF(SECOND, session_time, NOW()) <= 86400) LIMIT 1", array( $post_id, $user_ip ) ) );
 		if ( 0 === $sessions ) {
 			// register session.
 			$wpdb->query( $wpdb->prepare( "INSERT INTO {$wpdb->prefix}cvwp_sessions ( session_time, ip, post_id ) VALUES( %s, %s, %s )", array( current_time( 'mysql' ), $user_ip, $post_id ) ) );
