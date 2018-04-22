@@ -77,14 +77,18 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 			$this->settings = [
 
 				// info.
-				'name'     => __( 'Count Visitors WP', 'cvwp' ),
-				'version'  => $this->version,
+				'name'       => __( 'Count Visitors WP', 'cvwp' ),
+				'version'    => $this->version,
+
+				// parameters.
+				'menu_slug'  => 'cvwp',
+				'permission' => 'manage_options',
 
 				// path.
-				'file'     => __FILE__,
-				'basename' => plugin_basename( __FILE__ ),
-				'path'     => plugin_dir_path( __FILE__ ),
-				'dir'      => plugin_dir_url( __FILE__ ),
+				'file'       => __FILE__,
+				'basename'   => plugin_basename( __FILE__ ),
+				'path'       => plugin_dir_path( __FILE__ ),
+				'dir'        => plugin_dir_url( __FILE__ ),
 
 			];
 
@@ -110,6 +114,9 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 			require_once 'core/class-cvwp-metabox.php';
 			require_once 'core/class-cvwp-rest-api.php';
 			require_once 'core/class-cvwp-controller.php';
+
+			// setup admin page.
+			add_action( 'admin_menu', [ $this, 'admin_page_url' ] );
 
 			if ( ! is_admin() ) {
 				add_action( 'wp_footer', [ $this, 'register_post_counter_field' ] );
@@ -152,6 +159,67 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 		public function register_scripts() {
 			wp_register_script( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/js/base.min.js', [ 'jquery' ], COUNT_VISITORS_WP_VERSION );
 			wp_enqueue_script( 'count-visitor-wp' );
+		}
+
+		/**
+		 *  Admin page init.
+		 *
+		 *  @type    function
+		 *  @date    04/22/18
+		 *  @since   1.0.1
+		 */
+		public function admin_page_url() {
+			add_options_page(
+				esc_html__( 'Count Visitors WP / Settings', 'cvwp' ),
+				esc_html__( 'Count Visitors WP', 'cvwp' ),
+				$this->settings['permission'],
+				$this->settings['menu_slug'],
+				[ $this, 'admin_settings_page' ]
+			);
+
+			add_filter( 'plugin_action_links_' . $this->settings['basename'], [ $this, 'admin_settings_url' ] );
+		}
+
+		/**
+		 *  Admin page settings.
+		 *
+		 *  @type    function
+		 *  @date    04/22/18
+		 *  @since   1.0.1
+		 */
+		public function admin_settings_page() {
+			$this->admin_save_settings();
+			include $this->settings['path'] . 'admin/admin.php';
+		}
+
+		/**
+		 *  Admin page url settings.
+		 *
+		 *  @type    function
+		 *  @date    04/22/18
+		 *  @since   1.0.1
+		 *  @param   string $url   Admin page link inside dashboard.
+		 */
+		public function admin_settings_url( $url ) {
+			$settings_url  = menu_page_url( $this->settings['menu_slug'], false );
+			$settings_link = '<a href="{$settings_url}">' . esc_html__( 'Settings', 'cvwp' ) . '</a>';
+			array_unshift( $url, $settings_link );
+
+			return $url;
+		}
+
+		/**
+		 *  Admin page save settings
+		 *
+		 *  @type    function
+		 *  @date    04/22/18
+		 *  @since   1.0.1
+		 */
+		private function admin_save_settings() {
+			// check user capability.
+			if ( ! current_user_can( $this->settings['permission'] ) ) {
+				return;
+			}
 		}
 
 	}
