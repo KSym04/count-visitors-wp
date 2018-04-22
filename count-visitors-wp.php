@@ -74,7 +74,7 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 		 */
 		public function initialize() {
 			// vars.
-			$this->settings = array(
+			$this->settings = [
 
 				// info.
 				'name'     => __( 'Count Visitors WP', 'cvwp' ),
@@ -86,7 +86,7 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 				'path'     => plugin_dir_path( __FILE__ ),
 				'dir'      => plugin_dir_url( __FILE__ ),
 
-			);
+			];
 
 			// defines.
 			define( 'COUNT_VISITORS_WP_VERSION', $this->version );
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 			require_once 'core/class-cvwp-controller.php';
 
 			if ( ! is_admin() ) {
-				add_action( 'wp_footer', array( $this, 'register_post_counter_field' ) );
+				add_action( 'wp_footer', [ $this, 'register_post_counter_field' ] );
 			}
 		}
 
@@ -138,10 +138,7 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 		 *  @since   1.0.0
 		 */
 		public function register_styles() {
-			// register.
 			wp_register_style( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/css/main.min.css', [], COUNT_VISITORS_WP_VERSION );
-
-			// init.
 			wp_enqueue_style( 'count-visitor-wp' );
 		}
 
@@ -153,10 +150,7 @@ if ( ! class_exists( 'Count_Visitors_WP' ) ) :
 		 *  @since   1.0.0
 		 */
 		public function register_scripts() {
-			// register.
 			wp_register_script( 'count-visitor-wp', COUNT_VISITORS_WP_BASE_DIR . 'assets/js/base.min.js', [ 'jquery' ], COUNT_VISITORS_WP_VERSION );
-
-			// init.
 			wp_enqueue_script( 'count-visitor-wp' );
 		}
 

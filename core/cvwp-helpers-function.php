@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function count_visitors_get_ip( $validate = true ) {
 	// ipkeys.
-	$ipkeys = array(
+	$ipkeys = [
 		'REMOTE_ADDR',
 		'HTTP_CLIENT_IP',
 		'HTTP_X_FORWARDED_FOR',
@@ -28,9 +28,9 @@ function count_visitors_get_ip( $validate = true ) {
 		'HTTP_FORWARDED_FOR',
 		'HTTP_FORWARDED',
 		'HTTP_X_CLUSTER_CLIENT_IP',
-	);
+	];
 
-	$ip = array();
+	$ip = [];
 	foreach ( $ipkeys as $keyword ) {
 		if ( ! empty( $_SERVER[ $keyword ] ) ) {
 			$server_keyword = sanitize_text_field( wp_unslash( $_SERVER[ $keyword ] ) );

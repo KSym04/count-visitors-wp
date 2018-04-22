@@ -31,7 +31,7 @@ class CVWP_Rest_Api {
 	 * @since 1.0.0
 	 * @var   array
 	 */
-	public $rest_bases = array( '/view' );
+	public $rest_bases = [ '/view' ];
 
 	/**
 	 * Constructor.
@@ -39,7 +39,7 @@ class CVWP_Rest_Api {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'rest_api_init', array( $this, 'initialize' ) );
+		add_action( 'rest_api_init', [ $this, 'initialize' ] );
 	}
 
 	/**
@@ -50,10 +50,10 @@ class CVWP_Rest_Api {
 	public function initialize() {
 		foreach ( $this->rest_bases as $rest_base ) {
 			register_rest_route(
-				$this->namespace, $rest_base . '/(?P<id>[\d]+)', array(
+				$this->namespace, $rest_base . '/(?P<id>[\d]+)', [
 					'methods'  => 'GET',
-					'callback' => array( $this, str_replace( '/', '', $rest_base ) . '_counts' ),
-				)
+					'callback' => [ $this, str_replace( '/', '', $rest_base ) . '_counts' ],
+				]
 			);
 		}
 	}
@@ -67,10 +67,10 @@ class CVWP_Rest_Api {
 	public function view_counts( $request ) {
 		$id = $request->get_param( 'id' );
 
-		$json_data = array(
+		$json_data = [
 			'success' => true,
 			'message' => $id,
-		);
+		];
 
 		return wp_send_json( $json_data );
 	}

@@ -24,8 +24,8 @@ class CVWP_MetaBox {
 	 */
 	public function __construct() {
 		if ( is_admin() ) {
-			add_action( 'load-post.php', array( $this, 'init_metabox' ) );
-			add_action( 'load-post-new.php', array( $this, 'init_metabox' ) );
+			add_action( 'load-post.php', [ $this, 'init_metabox' ] );
+			add_action( 'load-post-new.php', [ $this, 'init_metabox' ] );
 		}
 	}
 
@@ -35,8 +35,8 @@ class CVWP_MetaBox {
 	 * @since 1.0.0
 	 */
 	public function init_metabox() {
-		add_action( 'add_meta_boxes', array( $this, 'add_metabox' ) );
-		add_action( 'save_post', array( $this, 'save_metabox' ), 10, 2 );
+		add_action( 'add_meta_boxes', [ $this, 'add_metabox' ] );
+		add_action( 'save_post', [ $this, 'save_metabox' ], 10, 2 );
 	}
 
 	/**
@@ -44,11 +44,11 @@ class CVWP_MetaBox {
 	 *
 	 * @since 1.0.0
 	 */
-	public function add_metabox( $post_type ) {
+	public function add_metabox( $post_type = [] ) {
 		add_meta_box(
 			'cvwp-meta-box',
 			__( 'Visit Counts', 'cvwp' ),
-			array( $this, 'render_metabox' ),
+			[ $this, 'render_metabox' ],
 			$post_type, // where to appear? Example: post, page and etc.
 			'side',
 			'high'
@@ -64,6 +64,7 @@ class CVWP_MetaBox {
 	public function render_metabox( $post ) {
 		// Add nonce for security and authentication.
 		wp_nonce_field( 'cvwp_nonce_action', 'cvwp_nonce' );
+		echo do_shortcode( '[please_count_visits]' );
 	}
 
 	/**

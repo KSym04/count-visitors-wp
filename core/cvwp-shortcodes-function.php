@@ -23,9 +23,9 @@ function please_count_visits_logic( $atts ) {
 
 	// parse attributes.
 	$a = shortcode_atts(
-		array(
-			'label' => '',
-		), $atts, 'please_count_visits'
+		[
+			'label' => ''
+		], $atts, 'please_count_visits'
 	);
 
 	$count_visits = number_format( $wpdb->get_var( $wpdb->prepare( "SELECT `visits_count` FROM {$wpdb->prefix}cvwp_total_counts WHERE `post_id` = %s LIMIT 1", $post->ID ) ) );

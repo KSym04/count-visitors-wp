@@ -6,6 +6,8 @@
  * @version 1.0.0
  */
 
+namespace CountVisitorsWP;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

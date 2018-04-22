@@ -38,6 +38,6 @@ Our plugin by default only counts the unique visit of user on each page or post.
 
 ## Changelog ##
 
-### 1.0.0 ###
+### 1.0.0 - Apr 16, 2018 ###
 
 * Happy Birthday

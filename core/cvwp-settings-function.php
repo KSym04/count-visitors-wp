@@ -45,7 +45,7 @@ function cvwp_install() {
 			`config_name` varchar(255) NOT NULL,
 			`config_value` varchar(255) NOT NULL,
 			PRIMARY KEY (id)) DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate};",
-			array( '0000-00-00 00:00:00' )
+			[ '0000-00-00 00:00:00' ]
 		)
 	);
 
@@ -58,7 +58,7 @@ function cvwp_install() {
 			`post_id` varchar(255) NOT NULL,
 			`visits_count` int DEFAULT %s NOT NULL,
 			PRIMARY KEY (id)) DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate};",
-			array( '0' )
+			[ '0' ]
 		)
 	);
 
@@ -72,7 +72,7 @@ function cvwp_install() {
 			`ip` varchar(255) NOT NULL,
 			`post_id` varchar(255) NOT NULL,
 			PRIMARY KEY (id)) DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate};",
-			array( '0000-00-00 00:00:00' )
+			[ '0000-00-00 00:00:00' ]
 		)
 	);
 
@@ -94,11 +94,11 @@ function cvwp_install_data() {
 		$welcome_title = 'Count Visitors WP';
 		$wpdb->insert(
 			$wpdb->prefix . 'cvwp_config',
-			array(
+			[
 				'time'         => current_time( 'mysql' ),
 				'config_name'  => 'welcome_title',
 				'config_value' => esc_sql( $welcome_title ),
-			)
+			]
 		);
 	}
 
@@ -108,11 +108,11 @@ function cvwp_install_data() {
 		$welcome_msg = 'Congratulations, you just completed the installation!';
 		$wpdb->insert(
 			$wpdb->prefix . 'cvwp_config',
-			array(
+			[
 				'time'         => current_time( 'mysql' ),
 				'config_name'  => 'welcome_msg',
 				'config_value' => esc_sql( $welcome_msg ),
-			)
+			]
 		);
 	}
 }
