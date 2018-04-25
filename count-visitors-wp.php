@@ -3,10 +3,10 @@
  * Plugin Name: Count Visitors WP
  * Description: WordPress plugin utility used for counting user page visits on your WordPress site pages and post.
  * Version: 1.0.0
- * Author: Eteam.dk
- * Author URI: http://www.eteam.dk/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
- * Plugin URI: http://www.eteam.dk/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
- * Copyright: Eteam.dk
+ * Author: DopeThemes
+ * Author URI: https://www.dopethemes.com/downloads/count-visitors-wp/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
+ * Plugin URI: https://www.dopethemes.com/downloads/count-visitors-wp/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
+ * Copyright: DopeThemes
  * Text Domain: cvwp
  * Domain Path: /lang
  * License: GPLv3
@@ -16,7 +16,7 @@
  */
 
 /**
- * Copyright Eteam.dk
+ * Copyright DopeThemes
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
